@@ -5,6 +5,7 @@ class GraphByAdjacencyMatrix {
     this.v = v; // number vertices
     this.directedGraph = directedGraph;
     this.adjMatrix = [];
+    this.verticesQueue = []; // queue for BFS
 
     this.verticesFree = new Array(v); // vertice free statuses
     this.trace = new Array(v); // tracing array for Graph Search
@@ -45,11 +46,13 @@ class GraphByAdjacencyMatrix {
     }
   }
 
-  printDFSResult(startPoint, endPoint) {
+  printFSResult(fsType, startPoint, endPoint) {
     if (this.verticesFree[endPoint]) {
       console.log(`Not found any paths from ${startPoint} to ${endPoint}`);
     } else {
       let pivot = endPoint;
+
+      console.log(`${fsType} path:`);
 
       while(true) {
         process.stdout.write(`${pivot}`);
@@ -74,7 +77,34 @@ class GraphByAdjacencyMatrix {
     this.verticesFree[startPoint] = false;
 
     this.DFSHandler(startPoint);
-    this.printDFSResult(startPoint, endPoint);
+    this.printFSResult('DFS', startPoint, endPoint);
+  }
+
+  BFS(startPoint, endPoint) {
+    for (let i = 0; i < this.v; i++) {
+      this.verticesFree[i] = true;
+      this.trace[i] = -1;
+    }
+    
+    this.trace[startPoint] = startPoint;
+    this.verticesFree[startPoint] = false;
+    this.verticesQueue = [];
+
+    this.verticesQueue.push(startPoint);
+
+    while(this.verticesQueue.length > 0) {
+      const u = this.verticesQueue.pop();
+
+      for (let i = 0; i < this.v; i++) {
+        if (this.verticesFree[i] && this.adjMatrix[u][i] > 0) {
+          this.trace[i] = u;
+          this.verticesFree[i] = false;
+          this.verticesQueue.push(i);
+        }
+      }
+    }
+
+    this.printFSResult('BFS', startPoint, endPoint);
   }
 }
 
@@ -89,3 +119,4 @@ graph.addEdge(3, 5);
 graph.addEdge(6, 7);
 
 graph.DFS(3, 4);
+graph.BFS(3, 4);
