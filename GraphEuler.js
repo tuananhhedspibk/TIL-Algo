@@ -64,7 +64,7 @@ class GraphByAdjacencyMatrix {
     return !this.verticesFree[startPoint];
   }
 
-  findEulerCircut() {
+  findEulerCircuit() {
     let nextVertice = 0;
     let currentVertice = 0;
 
@@ -107,7 +107,7 @@ class GraphByAdjacencyMatrix {
 // graph.addEdge(2, 0);
 // graph.addEdge(2, 3);
 
-// graph.findEulerCircut();
+// graph.findEulerCircuit();
 
 const graph = new GraphByAdjacencyMatrix(8);
 
@@ -127,4 +127,4 @@ graph.addEdge(5, 7);
 
 graph.addEdge(6, 7);
 
-graph.findEulerCircut();
+graph.findEulerCircuit();
