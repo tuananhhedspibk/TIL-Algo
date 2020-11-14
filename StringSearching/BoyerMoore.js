@@ -42,4 +42,4 @@ function boyerMoore(text, pattern) {
   }
 }
 
-boyerMoore('aabacbdcaacaacabac', 'abc');
+boyerMoore('aabacabaccaacabac', 'acabac');
