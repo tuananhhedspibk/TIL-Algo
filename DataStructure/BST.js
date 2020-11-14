@@ -160,7 +160,33 @@ class BST {
     }
   }
 
-  postOrderTraverseByStack()
+  postOrderTraverseByTwoStacks() {
+    const firstStack = [];
+    const secondStack = [];
+
+    let tempNode;
+
+    firstStack.push(this.root);
+
+    while (firstStack.length > 0) {
+      tempNode = firstStack.pop();
+
+      secondStack.push(tempNode.data);
+
+      if (tempNode.left) {
+        firstStack.push(tempNode.left);
+      }
+      if (tempNode.right) {
+        firstStack.push(tempNode.right);
+      }
+    }
+
+    while (secondStack.length > 0) {
+      process.stdout.write(`${secondStack.pop()} `);
+    }
+
+    console.log();
+  }
 }
 
 const bst = new BST();
@@ -183,6 +209,12 @@ bst.insertData(1);
 bst.insertData(13);
 
 bst.preOrderTraverseByStack();
+console.log();
+
+bst.inOrderTraverse(bst.root);
+console.log();
+
+bst.postOrderTraverseByTwoStacks();
 console.log();
 
 // bst.preOrderTraverse(bst.root);
